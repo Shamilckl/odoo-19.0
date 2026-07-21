@@ -16,3 +16,4 @@ class HospitalPatient(models.Model):
     phone = fields.Char(string="Phone")
 
     address = fields.Text(string="Address")
+

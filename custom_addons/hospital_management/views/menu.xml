@@ -8,6 +8,50 @@
         id="patient_menu"
         name="Patients"
         parent="hospital_root"
-        action="patient_action"/>
+        action="patient_action"
+        sequence="1"/>
+
+    <menuitem
+        id="doctor_menu"
+        name="Doctors"
+        parent="hospital_root"
+        action="doctor_action"
+        sequence="2"/>
+
+
+    <menuitem
+        id="room_menu"
+        name="Room"
+        parent="hospital_root"
+        action="room_action"
+        sequence="3"/>
+
+    <menuitem
+        id="medicine_menu"
+        name="Pharmacy"
+        parent="hospital_root"
+        action="medicine_action"
+        sequence="4"/>
+
+    <menuitem
+        id="laboratory_menu"
+        name="Laboratory"
+        parent="hospital_root"
+        action="laboratory_action"
+        sequence="5"/>
+
+    <menuitem
+        id="appointment_menu"
+        name="Appointments"
+        parent="hospital_root"
+        action="appointment_action"
+        sequence="6"/>
+
+    <menuitem
+        id="billing_menu"
+        name="Billing"
+        parent="hospital_root"
+        action="billing_action"
+        sequence="7"/>
 
 </odoo>
