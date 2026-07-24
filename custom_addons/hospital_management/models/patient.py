@@ -3,6 +3,7 @@ from odoo import models, fields
 class HospitalPatient(models.Model):
     _name = "hospital.patient"
     _description = "Hospital Patient"
+    _rec_name = 'name'
 
     name = fields.Char(string="Patient Name", required=True)
     age = fields.Integer(string="Age")
@@ -16,4 +17,6 @@ class HospitalPatient(models.Model):
     phone = fields.Char(string="Phone")
 
     address = fields.Text(string="Address")
+
+    tags = fields.Many2many("hospital.medicine",string="Tags")
 

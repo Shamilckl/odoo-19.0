@@ -3,7 +3,7 @@ from odoo import fields, models
 class HospitalMedicine(models.Model):
     _name = "hospital.medicine"
     _description = "Hospital Medicine"
-    _rec_name = "medicine"
+    _rec_name = "patient_id"
 
     patient_id= fields.Many2one("hospital.patient",string="Patient")
     doctor_id= fields.Many2one("hospital.doctor",string="Doctor")

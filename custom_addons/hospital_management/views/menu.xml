@@ -54,4 +54,11 @@
         action="billing_action"
         sequence="7"/>
 
+    <menuitem
+        id="consultation_menu"
+        name="Consultation"
+        parent="hospital_root"
+        action="consultation_action"
+        sequence="8"/>
+
 </odoo>

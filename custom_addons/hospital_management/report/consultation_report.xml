@@ -1,0 +1,42 @@
+<odoo>
+
+    <template id="consultation_report">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Consultation Report</h2>
+                        <p><strong>Patient :</strong>
+                            <span t-field="o.patient_id"/>
+                        </p>
+                        <p><strong>Doctor :</strong>
+                            <span t-field="o.doctor_id"/>
+                        </p>
+                        <p><strong>Diagnosis :</strong>
+                            <span t-field="o.diagnosis"/>
+                        </p>
+                        <h3>Medicines</h3>
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>Medicine</th>
+                                <th>Qty</th>
+                                <th>Price</th>
+                            </tr>
+                            <tr t-foreach="o.medicine_line_ids" t-as="m">
+                                <td>
+                                    <span t-field="m.medicine_id"/>
+                                </td>
+                                <td>
+                                    <span t-field="m.quantity"/>
+                                </td>
+                                <td>
+                                    <span t-field="m.price"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

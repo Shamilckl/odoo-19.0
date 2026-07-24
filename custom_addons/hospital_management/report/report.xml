@@ -18,4 +18,14 @@
         <field name="binding_model_id" ref="model_hospital_billing"/>
         <field name="binding_type">report</field>
     </record>
+
+    <record id="consultation_report_action" model="ir.actions.report">
+        <field name="name">Consultation Report</field>
+        <field name="model">hospital.consultation</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">hospital_management.consultation_report</field>
+        <field name="report_file">hospital_management.consultation_report</field>
+        <field name="binding_model_id" ref="model_hospital_consultation"/>
+        <field name="binding_type">report</field>
+    </record>
 </odoo>

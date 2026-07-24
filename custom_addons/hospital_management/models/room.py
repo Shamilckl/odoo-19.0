@@ -3,9 +3,9 @@ from odoo import models, fields
 class HospitalRoom(models.Model):
     _name = 'hospital.room'
     _description = 'Hospital Room'
-    _rec_name = "patient_id"
+    _rec_name = "room_id"
 
-    patient_id = fields.Many2one("hospital.patient", string="Patient")
+    patient_id = fields.Many2one("hospital.patient",string="Patient")
 
     room_id = fields.Integer(string="Room Number")
 
