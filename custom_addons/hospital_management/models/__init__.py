@@ -5,3 +5,6 @@ from . import medicine
 from . import laboratory
 from . import appointment
 from . import billing
+from . import consultation
+from . import product
+from . import consultation_line
