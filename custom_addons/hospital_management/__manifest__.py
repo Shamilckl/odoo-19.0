@@ -4,16 +4,16 @@
     'category': 'Healthcare',
     'summary': 'Hospital',
     'author': 'Me',
-    'depends': ['base','stock','product'],
+    'depends': ['base','stock','product','mail'],
 
     'data': [
         'security/ir.model.access.csv',
 
+        'data/consultation_seq.xml',
+        'data/appointment_seq.xml',
+
         'views/patient_views.xml',
         'views/doctor_views.xml',
-        'views/room_views.xml',
-        'views/medicine_views.xml',
-        'views/laboratory_views.xml',
         'views/appointment_views.xml',
         'views/billing_views.xml',
         'views/consultation_views.xml',
@@ -24,6 +24,8 @@
         'report/billing_report.xml',
         'report/consultation_report.xml',
         'report/report.xml',
+
+
     ],
     'application': True,
 }

@@ -5,6 +5,7 @@
         <field name="model">hospital.appointment</field>
         <field name="arch" type="xml">
             <list>
+                <field name="name"/>
                 <field name="patient_id"/>
                 <field name="doctor_id"/>
                 <field name="appointment_date"/>
@@ -20,28 +21,34 @@
 
                 <header>
 
-                    <button name="action_draft"
-                            string="Draft"
-                            type="object"/>
-
                     <button name="action_confirm"
                             string="Confirm"
                             type="object"
                             class="btn-primary"/>
 
-                    <field name="state"
-                           widget="statusbar"/>
+                    <button name="action_draft"
+                            string="Draft"
+                            type="object"
+                            invisible="state != 'draft'"/>
+
+                    <field name="state" widget="statusbar"/>
 
                 </header>
 
                 <sheet>
                     <group>
+                        <field name="name" readonly="1"/>
                         <field name="patient_id"/>
                         <field name="doctor_id"/>
                         <field name="appointment_date"/>
                         <field name="fee"/>
                     </group>
                 </sheet>
+                <chatter>
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </chatter>
             </form>
         </field>
     </record>

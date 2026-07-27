@@ -17,6 +17,3 @@ class HospitalPatient(models.Model):
     phone = fields.Char(string="Phone")
 
     address = fields.Text(string="Address")
-
-    tags = fields.Many2many("hospital.medicine",string="Tags")
-

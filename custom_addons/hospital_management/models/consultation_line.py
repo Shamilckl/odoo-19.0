@@ -1,9 +1,9 @@
-from odoo import models, fields
+from odoo import models, fields, api
 
 class ConsultationLine(models.Model):
     _name = "hospital.consultation.line"
     _description = "Consultation Medicine"
-    _rec_name = "consultation_id"
+    _rec_name = "medicine_id"
 
     consultation_id = fields.Many2one(
         "hospital.consultation",
@@ -19,7 +19,6 @@ class ConsultationLine(models.Model):
     dosage = fields.Float(string="Dosage in mg")
 
     quantity = fields.Integer(
-
         string="Quantity",
         default=1
     )
@@ -28,3 +27,4 @@ class ConsultationLine(models.Model):
         related="medicine_id.lst_price",
         string="Price"
     )
+

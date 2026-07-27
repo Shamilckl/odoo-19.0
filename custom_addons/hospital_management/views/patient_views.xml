@@ -25,7 +25,6 @@
                         <field name="age"/>
                         <field name="gender"/>
                         <field name="phone"/>
-                        <field name="tags"/>
                         <field name="address"/>
                     </group>
 

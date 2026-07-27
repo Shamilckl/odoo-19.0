@@ -20,45 +20,24 @@
 
 
     <menuitem
-        id="room_menu"
-        name="Room"
-        parent="hospital_root"
-        action="room_action"
-        sequence="3"/>
-
-    <menuitem
-        id="medicine_menu"
-        name="Pharmacy"
-        parent="hospital_root"
-        action="medicine_action"
-        sequence="4"/>
-
-    <menuitem
-        id="laboratory_menu"
-        name="Laboratory"
-        parent="hospital_root"
-        action="laboratory_action"
-        sequence="5"/>
-
-    <menuitem
         id="appointment_menu"
         name="Appointments"
         parent="hospital_root"
         action="appointment_action"
-        sequence="6"/>
+        sequence="3"/>
 
     <menuitem
         id="billing_menu"
         name="Billing"
         parent="hospital_root"
         action="billing_action"
-        sequence="7"/>
+        sequence="4"/>
 
     <menuitem
         id="consultation_menu"
         name="Consultation"
         parent="hospital_root"
         action="consultation_action"
-        sequence="8"/>
+        sequence="5"/>
 
 </odoo>
