@@ -5,7 +5,7 @@ class HospitalConsultation(models.Model):
     _description = "Consultation"
     _rec_name = "name"
     _inherit = ["mail.thread", "mail.activity.mixin"]
-    
+
     name = fields.Char(
         string="Consultation No",
         required=True,
@@ -48,7 +48,7 @@ class HospitalConsultation(models.Model):
                 vals['name'] = self.env['ir.sequence'].next_by_code(
                     'hospital.consultation'
                 ) or 'New'
-
+    
         return super().create(vals_list)
 
     def action_done(self):

@@ -6,9 +6,9 @@
         <field name="arch" type="xml">
             <list>
                 <field name="name"/>
+                <field name="appointment_date"/>
                 <field name="patient_id"/>
                 <field name="doctor_id"/>
-                <field name="appointment_date"/>
             </list>
         </field>
     </record>
