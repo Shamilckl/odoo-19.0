@@ -23,26 +23,36 @@
                     <button name="action_consultation"
                             string="Consultation"
                             type="object"
-                            class="btn-primary"/>
+                            class="btn-primary"
+                            invisible="state != 'new'"/>
 
                     <button name="action_done"
                             string="Done"
                             type="object"
-                            class="btn-primary"/>
+                            class="btn-primary"
+                            invisible="state != 'consultation'"/>
 
                     <button name="action_cancel"
                             string="Cancel"
-                            type="object"/>
+                            type="object"
+                            invisible="state != 'new'"/>
 
                     <field name="state" widget="statusbar"/>
+
                 </header>
 
                 <sheet>
                     <group>
-                        <field name="name"/>
-                        <field name="patient_id"/>
-                        <field name="doctor_id"/>
-                        <field name="diagnosis"/>
+                        <group>
+                            <field name="name"/>
+                            <field name="patient_id"/>
+                        </group>
+                        <group>
+                            <field name="doctor_id"/>
+                        </group>
+                        <group>
+                            <field name="diagnosis"/>
+                        </group>
                     </group>
 
                     <notebook>

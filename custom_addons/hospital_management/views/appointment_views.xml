@@ -24,26 +24,49 @@
                     <button name="action_confirm"
                             string="Confirm"
                             type="object"
-                            class="btn-primary"/>
+                            class="btn-primary"
+                            invisible="state == 'confirm'"/>
 
                     <button name="action_draft"
                             string="Draft"
                             type="object"
-                            invisible="state != 'draft'"/>
+                            invisible="state != 'new'"/>
 
                     <field name="state" widget="statusbar"/>
 
                 </header>
 
                 <sheet>
+
+                    <div class="oe_button_box" name="button_box">
+
+                        <button name="action_view_consultation"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-stethoscope">
+
+                            <field name="consultation_count"
+                                   widget="statinfo"
+                                   string="Consultation"/>
+
+                        </button>
+
+                    </div>
+
                     <group>
-                        <field name="name" readonly="1"/>
-                        <field name="patient_id"/>
-                        <field name="doctor_id"/>
-                        <field name="appointment_date"/>
-                        <field name="fee"/>
+                        <group>
+                            <field name="name"/>
+                            <field name="patient_id"/>
+                            <field name="doctor_id"/>
+                        </group>
+                        <group>
+                            <field name="appointment_date"/>
+                            <field name="fee"/>
+                        </group>
                     </group>
+
                 </sheet>
+
                 <chatter>
                     <field name="message_follower_ids"/>
                     <field name="activity_ids"/>

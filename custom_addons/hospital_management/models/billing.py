@@ -21,7 +21,7 @@ class HospitalBilling(models.Model):
     total_amount = fields.Float(
         string="Bill Amount",
         compute="_compute_total",
-        store=True
+        store=True, index=True
     )
 
     @api.depends(

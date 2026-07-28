@@ -19,10 +19,23 @@ class HospitalAppointment(models.Model):
     appointment_date = fields.Date(string="Appointment Date", tracking=True)
     fee = fields.Integer(string="Consultation Fee", tracking=True)
 
+    consultation_count = fields.Integer(
+        compute="_compute_consultation_count"
+    )
+
+    def _compute_consultation_count(self):
+        for rec in self:
+            rec.consultation_count = self.env[
+                "hospital.consultation"
+            ].search_count([
+                ("appointment_id", "=", rec.id)
+            ])
+
     state = fields.Selection([
+        ('new', 'New'),
         ('draft', 'Draft'),
         ('confirm', 'Confirmed'),
-    ], default='draft', string="Status", tracking=True)
+    ], default='new', string="Status", tracking=True)
 
     @api.model_create_multi
     def create(self, vals_list):
@@ -33,6 +46,7 @@ class HospitalAppointment(models.Model):
                 ) or 'New'
 
         return super().create(vals_list)
+
 
     def action_draft(self):
         self.write({
@@ -49,3 +63,22 @@ class HospitalAppointment(models.Model):
             'doctor_id': self.doctor_id.id,
             'appointment_id': self.id,
         })
+
+    def action_view_consultation(self):
+        self.ensure_one()
+
+        consultation = self.env["hospital.consultation"].search(
+            [("appointment_id", "=", self.id)],
+            limit=1
+        )
+
+        if consultation:
+            return {
+                "type": "ir.actions.act_window",
+                "name": "Consultation",
+                "res_model": "hospital.consultation",
+                "view_mode": "form",
+                "res_id": consultation.id,
+                "target": "current",
+            }
+        return True
