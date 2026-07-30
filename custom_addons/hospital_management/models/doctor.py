@@ -6,6 +6,13 @@ class HospitalDoctor(models.Model):
     _rec_name = "name"
 
     name = fields.Char(string="Doctor Name", required=True)
+
+    consulting_fee_ids = fields.One2many(
+        "hospital.doctor.fee",
+        "doctor_id",
+        string="Consulting Fees"
+    )
+
     age = fields.Integer(string="Age")
 
     gender = fields.Selection([
@@ -17,3 +24,13 @@ class HospitalDoctor(models.Model):
     specialization = fields.Char(string="Specialization")
 
     phone = fields.Char(string="Phone")
+
+    slot_ids = fields.One2many(
+        "hospital.doctor.slot",
+        "doctor_id",
+        string="Time Slots"
+    )
+
+
+
+

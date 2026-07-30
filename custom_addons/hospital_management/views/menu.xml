@@ -40,4 +40,11 @@
         action="consultation_action"
         sequence="5"/>
 
+    <menuitem
+        id="doctor_slots_menu"
+        name="Slots"
+        parent="hospital_root"
+        action="doctor_slot_action"
+        sequence="6"/>
+
 </odoo>

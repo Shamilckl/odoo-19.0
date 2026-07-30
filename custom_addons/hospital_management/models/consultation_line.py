@@ -1,4 +1,4 @@
-from odoo import models, fields, api
+from odoo import models, fields
 
 class ConsultationLine(models.Model):
     _name = "hospital.consultation.line"

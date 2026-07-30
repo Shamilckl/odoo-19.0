@@ -5,3 +5,5 @@ from . import billing
 from . import consultation
 from . import product
 from . import consultation_line
+from . import doctor_fee
+from . import doctor_slot

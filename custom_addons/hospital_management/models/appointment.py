@@ -1,5 +1,6 @@
 from odoo import models, fields, api
 
+
 class HospitalAppointment(models.Model):
     _name = "hospital.appointment"
     _description = "Hospital Appointment"
@@ -17,7 +18,28 @@ class HospitalAppointment(models.Model):
     patient_id = fields.Many2one("hospital.patient", string="Patient", tracking=True)
     doctor_id = fields.Many2one("hospital.doctor", string="Doctor", tracking=True)
     appointment_date = fields.Date(string="Appointment Date", tracking=True)
-    fee = fields.Integer(string="Consultation Fee", tracking=True)
+
+    consulting_fee = fields.Float(
+        string="Consulting Fee",
+        store=True,
+    )
+
+    @api.onchange('doctor_id', 'appointment_date')
+    def _onchange_consulting_fee(self):
+        for rec in self:
+
+            rec.consulting_fee = 0
+
+            if rec.doctor_id and rec.appointment_date:
+
+                day = rec.appointment_date.strftime('%A').lower()
+
+                fee_record = rec.doctor_id.consulting_fee_ids.filtered(
+                    lambda x: x.day == day
+                )
+
+                if fee_record:
+                    rec.consulting_fee = fee_record[0].fee
 
     consultation_count = fields.Integer(
         compute="_compute_consultation_count"
@@ -82,3 +104,4 @@ class HospitalAppointment(models.Model):
                 "target": "current",
             }
         return True
+
