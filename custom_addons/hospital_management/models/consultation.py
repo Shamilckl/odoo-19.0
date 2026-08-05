@@ -34,11 +34,6 @@ class HospitalConsultation(models.Model):
         string="Medicines", tracking=True
     )
 
-    consulting_fee = fields.Float(
-        string="Consulting Fee",
-        tracking=True,
-    )
-
     state = fields.Selection([
         ('new', 'New'),
         ('consultation', 'Consultation'),

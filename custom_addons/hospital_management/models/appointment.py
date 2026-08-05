@@ -1,6 +1,5 @@
 from odoo import models, fields, api
 
-
 class HospitalAppointment(models.Model):
     _name = "hospital.appointment"
     _description = "Hospital Appointment"
@@ -24,6 +23,24 @@ class HospitalAppointment(models.Model):
         store=True,
     )
 
+    consultation_count = fields.Integer(
+        compute="_compute_consultation_count"
+    )
+
+    state = fields.Selection([
+        ('new', 'New'),
+        ('draft', 'Draft'),
+        ('confirm', 'Confirmed'),
+    ], default='new', string="Status", tracking=True)
+
+    def _compute_consultation_count(self):
+        for rec in self:
+            rec.consultation_count = self.env[
+                "hospital.consultation"
+            ].search_count([
+                ("appointment_id", "=", rec.id)
+            ])
+
     @api.onchange('doctor_id', 'appointment_date')
     def _onchange_consulting_fee(self):
         for rec in self:
@@ -40,24 +57,6 @@ class HospitalAppointment(models.Model):
 
                 if fee_record:
                     rec.consulting_fee = fee_record[0].fee
-
-    consultation_count = fields.Integer(
-        compute="_compute_consultation_count"
-    )
-
-    def _compute_consultation_count(self):
-        for rec in self:
-            rec.consultation_count = self.env[
-                "hospital.consultation"
-            ].search_count([
-                ("appointment_id", "=", rec.id)
-            ])
-
-    state = fields.Selection([
-        ('new', 'New'),
-        ('draft', 'Draft'),
-        ('confirm', 'Confirmed'),
-    ], default='new', string="Status", tracking=True)
 
     @api.model_create_multi
     def create(self, vals_list):
