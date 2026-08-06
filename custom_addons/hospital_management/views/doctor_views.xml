@@ -37,15 +37,6 @@
                             </field>
                         </page>
 
-                        <page string="Time Slots">
-                            <field name="slot_ids">
-                                <list editable="bottom">
-                                    <field name="start_time"/>
-                                    <field name="end_time"/>
-                                </list>
-                            </field>
-                        </page>
-
                     </notebook>
                 </sheet>
             </form>

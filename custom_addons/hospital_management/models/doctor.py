@@ -25,12 +25,6 @@ class HospitalDoctor(models.Model):
 
     phone = fields.Char(string="Phone")
 
-    slot_ids = fields.One2many(
-        "hospital.doctor.slot",
-        "doctor_id",
-        string="Time Slots"
-    )
-
 
 
 

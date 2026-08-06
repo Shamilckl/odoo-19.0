@@ -10,6 +10,7 @@
                 <field name="consulting_fee"/>
                 <field name="patient_id"/>
                 <field name="doctor_id"/>
+                <field name="slot_id"/>
             </list>
         </field>
     </record>
@@ -63,6 +64,7 @@
                         <group>
                             <field name="appointment_date"/>
                             <field name="consulting_fee"/>
+                            <field name="slot_id"/>
                         </group>
                     </group>
 

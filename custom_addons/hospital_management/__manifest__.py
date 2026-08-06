@@ -17,7 +17,7 @@
         'views/appointment_views.xml',
         'views/billing_views.xml',
         'views/consultation_views.xml',
-        'views/doctor_slot_views.xml',
+        'views/hospital_slot_views.xml',
         'views/product_views.xml',
         'views/menu.xml',
 

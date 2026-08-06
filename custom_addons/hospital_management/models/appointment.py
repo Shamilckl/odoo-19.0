@@ -33,6 +33,11 @@ class HospitalAppointment(models.Model):
         ('confirm', 'Confirmed'),
     ], default='new', string="Status", tracking=True)
 
+    slot_id = fields.Many2one(
+        "hospital.slot",
+        string="Time Slot"
+    )
+
     def _compute_consultation_count(self):
         for rec in self:
             rec.consultation_count = self.env[

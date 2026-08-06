@@ -41,10 +41,17 @@
         sequence="5"/>
 
     <menuitem
-        id="doctor_slots_menu"
-        name="Slots"
+        id="configuration_menu"
+        name="Configuration"
         parent="hospital_root"
-        action="doctor_slot_action"
+        action="slot_action"
         sequence="6"/>
+
+    <menuitem
+        id="slot_menu"
+        name="Slots"
+        parent="configuration_menu"
+        action="slot_action"
+        sequence="1"/>
 
 </odoo>
