@@ -27,6 +27,10 @@ class HospitalAppointment(models.Model):
         compute="_compute_consultation_count"
     )
 
+    sale_order_count = fields.Integer(
+        compute="_compute_sale_order_count"
+    )
+
     state = fields.Selection([
         ('new', 'New'),
         ('draft', 'Draft'),
@@ -42,6 +46,12 @@ class HospitalAppointment(models.Model):
     available_slot_ids = fields.Many2many(
         "hospital.slot",
         compute="_compute_available_slots",
+    )
+
+    sale_order_ids = fields.One2many(
+        "sale.order",
+        "appointment_id",
+        string="Sales Orders"
     )
 
     @api.depends('doctor_id', 'appointment_date')
@@ -64,6 +74,14 @@ class HospitalAppointment(models.Model):
         for rec in self:
             rec.consultation_count = self.env[
                 "hospital.consultation"
+            ].search_count([
+                ("appointment_id", "=", rec.id)
+            ])
+
+    def _compute_sale_order_count(self):
+        for rec in self:
+            rec.sale_order_count = self.env[
+                "sale.order"
             ].search_count([
                 ("appointment_id", "=", rec.id)
             ])
@@ -132,4 +150,23 @@ class HospitalAppointment(models.Model):
                 "res_id": consultation.id,
                 "target": "current",
             }
+        return True
+
+    def action_view_sale_order(self):
+        self.ensure_one()
+
+        sale_order = self.env["sale.order"].search([
+            ("appointment_id", "=", self.id)
+        ], limit=1)
+
+        if sale_order:
+            return {
+                "type": "ir.actions.act_window",
+                "name": "Sales Order",
+                "res_model": "sale.order",
+                "view_mode": "form",
+                "res_id": sale_order.id,
+                "target": "current",
+            }
+
         return True

@@ -1,4 +1,4 @@
-from odoo import models, fields
+from odoo import models, fields, api
 
 class HospitalPatient(models.Model):
     _name = "hospital.patient"
@@ -17,3 +17,5 @@ class HospitalPatient(models.Model):
     phone = fields.Char(string="Phone")
 
     address = fields.Text(string="Address")
+
+    partner_id = fields.Many2one("res.partner", string="Customer")

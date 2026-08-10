@@ -4,7 +4,7 @@
     'category': 'Healthcare',
     'summary': 'Hospital',
     'author': 'Me',
-    'depends': ['base','stock','product','mail'],
+    'depends': ['base','stock','product','mail','sale_management'],
 
     'data': [
         'security/ir.model.access.csv',
