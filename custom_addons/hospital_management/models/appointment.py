@@ -35,8 +35,30 @@ class HospitalAppointment(models.Model):
 
     slot_id = fields.Many2one(
         "hospital.slot",
-        string="Time Slot"
+        string="Time Slot",
+        domain="[('id', 'in', available_slot_ids)]"
     )
+
+    available_slot_ids = fields.Many2many(
+        "hospital.slot",
+        compute="_compute_available_slots",
+    )
+
+    @api.depends('doctor_id', 'appointment_date')
+    def _compute_available_slots(self):
+        for rec in self:
+            rec.available_slot_ids = [(5, 0, 0)]
+
+            if rec.doctor_id and rec.appointment_date:
+                day = rec.appointment_date.strftime('%A').lower()
+
+                fee_lines = rec.doctor_id.consulting_fee_ids.filtered(
+                    lambda x: x.day == day
+                )
+
+                slots = fee_lines.mapped('slot_ids')
+
+                rec.available_slot_ids = [(6, 0, slots.ids)]
 
     def _compute_consultation_count(self):
         for rec in self:
@@ -46,7 +68,7 @@ class HospitalAppointment(models.Model):
                 ("appointment_id", "=", rec.id)
             ])
 
-    @api.onchange('doctor_id', 'appointment_date')
+    @api.onchange('doctor_id', 'appointment_date', 'slot_id')
     def _onchange_consulting_fee(self):
         for rec in self:
 
@@ -57,7 +79,10 @@ class HospitalAppointment(models.Model):
                 day = rec.appointment_date.strftime('%A').lower()
 
                 fee_record = rec.doctor_id.consulting_fee_ids.filtered(
-                    lambda x: x.day == day
+                    lambda x:(
+                        x.day == day and
+                        rec.slot_id in x.slot_ids
+                    )
                 )
 
                 if fee_record:
@@ -108,4 +133,3 @@ class HospitalAppointment(models.Model):
                 "target": "current",
             }
         return True
-

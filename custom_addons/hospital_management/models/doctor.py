@@ -24,7 +24,3 @@ class HospitalDoctor(models.Model):
     specialization = fields.Char(string="Specialization")
 
     phone = fields.Char(string="Phone")
-
-
-
-

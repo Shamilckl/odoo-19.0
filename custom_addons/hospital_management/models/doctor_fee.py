@@ -27,3 +27,7 @@ class HospitalDoctorFee(models.Model):
         string="Consulting Fee",
         required=True
     )
+
+    slot_ids = fields.Many2many(
+        "hospital.slot",
+        string="Slots")

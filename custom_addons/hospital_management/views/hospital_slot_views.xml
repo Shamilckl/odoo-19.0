@@ -5,10 +5,9 @@
         <field name="model">hospital.slot</field>
         <field name="arch" type="xml">
             <list>
-                <field name="name"/>
                 <field name="start_time"/>
                 <field name="start_period"/>
-                <field name="end_time"/>
+                <field name ='end_time'/>
                 <field name="end_period"/>
             </list>
         </field>
@@ -22,11 +21,11 @@
                 <sheet>
                     <group>
                         <group>
-                            <field name="start_time"/>
+                            <field name="start_time" widget="float_time"/>
                             <field name="start_period"/>
                         </group>
                         <group>
-                            <field name="end_time"/>
+                            <field name="end_time" widget="float_time"/>
                             <field name="end_period"/>
                         </group>
                     </group>
