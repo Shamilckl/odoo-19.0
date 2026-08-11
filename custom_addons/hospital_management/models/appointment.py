@@ -121,17 +121,35 @@ class HospitalAppointment(models.Model):
         self.write({
             'state': 'draft'
         })
-
+        
     def action_confirm(self):
         self.write({
             'state': 'confirm'
         })
 
-        self.env['hospital.consultation'].create({
-            'patient_id': self.patient_id.id,
-            'doctor_id': self.doctor_id.id,
-            'appointment_id': self.id,
-        })
+        consultation = self.env['hospital.consultation'].search(
+            [('appointment_id', '=', self.id)],
+            limit=1
+        )
+
+        if not consultation:
+            self.env['hospital.consultation'].create({
+                'patient_id': self.patient_id.id,
+                'doctor_id': self.doctor_id.id,
+                'appointment_id': self.id,
+            })
+        self.patient_id._create_customer()
+        
+        sale_order = self.env['sale.order'].search(
+            [('appointment_id', '=', self.id)],
+            limit=1
+        )
+
+        if not sale_order:
+            self.env['sale.order'].create({
+                'partner_id': self.patient_id.partner_id.id,
+                'appointment_id': self.id,
+            })
 
     def action_view_consultation(self):
         self.ensure_one()
@@ -152,21 +170,19 @@ class HospitalAppointment(models.Model):
             }
         return True
 
-    def action_view_sale_order(self):
+    def action_view_sale_orders(self):
         self.ensure_one()
 
-        sale_order = self.env["sale.order"].search([
-            ("appointment_id", "=", self.id)
-        ], limit=1)
+        return {
+            "type": "ir.actions.act_window",
+            "name": "Sales Orders",
+            "res_model": "sale.order",
+            "view_mode": "list,form",
+            "domain": [
+                ("appointment_id", "=", self.id)
+            ],
+            "context": {
+                "default_appointment_id": self.id
+            },
+        }
 
-        if sale_order:
-            return {
-                "type": "ir.actions.act_window",
-                "name": "Sales Order",
-                "res_model": "sale.order",
-                "view_mode": "form",
-                "res_id": sale_order.id,
-                "target": "current",
-            }
-
-        return True
