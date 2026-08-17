@@ -24,3 +24,9 @@ class HospitalDoctor(models.Model):
     specialization = fields.Char(string="Specialization")
 
     phone = fields.Char(string="Phone")
+
+    product_ids = fields.Many2many(
+        "product.product",
+        string="Products",
+        domain="[('type', '=', 'service')]"
+    )

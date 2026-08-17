@@ -129,7 +129,7 @@ class HospitalAppointment(models.Model):
 
         consultation = self.env['hospital.consultation'].search(
             [('appointment_id', '=', self.id)],
-            limit=1
+             limit=1
         )
 
         if not consultation:
@@ -139,16 +139,18 @@ class HospitalAppointment(models.Model):
                 'appointment_id': self.id,
             })
         self.patient_id._create_customer()
-        
-        sale_order = self.env['sale.order'].search(
-            [('appointment_id', '=', self.id)],
-            limit=1
-        )
 
-        if not sale_order:
-            self.env['sale.order'].create({
-                'partner_id': self.patient_id.partner_id.id,
-                'appointment_id': self.id,
+        sale_order = self.env['sale.order'].create({
+            'partner_id': self.patient_id.partner_id.id,
+            'appointment_id': self.id,
+        })
+
+        for product in self.doctor_id.product_ids:
+            self.env['sale.order.line'].create({
+                'order_id': sale_order.id,
+                'product_id': product.id,
+                'product_uom_qty': 1,
+                'price_unit': product.lst_price,
             })
 
     def action_view_consultation(self):
@@ -173,16 +175,18 @@ class HospitalAppointment(models.Model):
     def action_view_sale_orders(self):
         self.ensure_one()
 
-        return {
-            "type": "ir.actions.act_window",
-            "name": "Sales Orders",
-            "res_model": "sale.order",
-            "view_mode": "list,form",
-            "domain": [
-                ("appointment_id", "=", self.id)
-            ],
-            "context": {
-                "default_appointment_id": self.id
-            },
-        }
+        sale_order = self.env["sale.order"].search(
+            [("appointment_id", "=", self.id)],
+            limit=1
+        )
 
+        if sale_order:
+            return {
+                "type": "ir.actions.act_window",
+                "name": "Quotation",
+                "res_model": "sale.order",
+                "view_mode": "list,form",
+                "res_id": sale_order.id,
+                "target": "current",
+            }
+        return True
