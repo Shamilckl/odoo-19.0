@@ -13,7 +13,7 @@ class ConsultationLine(models.Model):
     medicine_id = fields.Many2one(
         "product.product",
         string="Medicine",
-        domain="[('product_tmpl_id.is_medicine','=',True)]"
+        domain="[('product_tmpl_id.is_medicine','=',True)]" 
     )
 
     dosage = fields.Float(string="Dosage in mg")
