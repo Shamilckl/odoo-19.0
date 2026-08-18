@@ -37,5 +37,6 @@ class HospitalPatient(models.Model):
                     "street": patient.address,
                     "customer_rank": 1,
                 })
+                
 
                 patient.partner_id = partner.id

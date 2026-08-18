@@ -140,18 +140,23 @@ class HospitalAppointment(models.Model):
             })
         self.patient_id._create_customer()
 
-        sale_order = self.env['sale.order'].create({
-            'partner_id': self.patient_id.partner_id.id,
-            'appointment_id': self.id,
-        })
+        sale_order = self.env['sale.order'].search([
+                ('appointment_id', '=', self.id)],
+            limit=1)
 
-        for product in self.doctor_id.product_ids:
-            self.env['sale.order.line'].create({
-                'order_id': sale_order.id,
-                'product_id': product.id,
-                'product_uom_qty': 1,
-                'price_unit': product.lst_price,
+        if not sale_order:
+            sale_order = self.env['sale.order'].create({
+                'partner_id': self.patient_id.partner_id.id,
+                'appointment_id': self.id,
             })
+
+            for product in self.doctor_id.product_ids:
+                self.env['sale.order.line'].create({
+                    'order_id': sale_order.id,
+                    'product_id': product.id,
+                    'product_uom_qty': 1,
+                    'price_unit': product.lst_price,
+                })
 
     def action_view_consultation(self):
         self.ensure_one()

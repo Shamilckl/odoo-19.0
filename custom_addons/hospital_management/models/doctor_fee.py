@@ -1,6 +1,5 @@
 from odoo import models, fields
 
-
 class HospitalDoctorFee(models.Model):
     _name = "hospital.doctor.fee"
     _description = "Doctor Fee"
@@ -9,8 +8,7 @@ class HospitalDoctorFee(models.Model):
     doctor_id = fields.Many2one(
         "hospital.doctor",
         string="Doctor",
-        ondelete="cascade"
-    )
+        ondelete="cascade")
 
     day = fields.Selection([
         ('monday', 'Monday'),
@@ -25,8 +23,7 @@ class HospitalDoctorFee(models.Model):
 
     fee = fields.Float(
         string="Consulting Fee",
-        required=True
-    )
+        required=True)
 
     slot_ids = fields.Many2many(
         "hospital.slot",
