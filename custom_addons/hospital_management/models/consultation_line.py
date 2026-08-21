@@ -32,16 +32,15 @@ class ConsultationLine(models.Model):
     def create(self, vals_list):
         lines = super().create(vals_list)
         for line in lines:
-
             if not line.consultation_id:
                 continue
             appointment = line.consultation_id.appointment_id
-
             if not appointment:
                 continue
             sale_order = self.env["sale.order"].search([
                     ("appointment_id", "=", appointment.id)],
-                limit=1)
+                limit=1
+            )
 
             if not sale_order:
                 continue
