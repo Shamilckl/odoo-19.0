@@ -11,18 +11,17 @@
 
         'data/consultation_seq.xml',
         'data/appointment_seq.xml',
+        'data/patient_seq.xml',
 
         'views/patient_views.xml',
         'views/doctor_views.xml',
         'views/appointment_views.xml',
-        'views/billing_views.xml',
         'views/consultation_views.xml',
         'views/hospital_slot_views.xml',
         'views/product_views.xml',
         'views/menu.xml',
 
         'report/appointment_report.xml',
-        'report/billing_report.xml',
         'report/consultation_report.xml',
         'report/report.xml',
 

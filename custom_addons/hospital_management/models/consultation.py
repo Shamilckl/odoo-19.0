@@ -41,6 +41,10 @@ class HospitalConsultation(models.Model):
         ('cancel', 'Cancel'),
     ], default='new', string="Status", tracking=True)
 
+    sale_order_count = fields.Integer(
+        compute="_compute_sale_order_count"
+    )
+
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
@@ -56,6 +60,25 @@ class HospitalConsultation(models.Model):
             'state': 'done'
         })
 
+        sale_order = self.env['sale.order'].search([
+            ('consultation_id', '=', self.id)],
+            limit=1)
+
+        if not sale_order:
+            sale_order = self.env['sale.order'].create({
+                'partner_id': self.patient_id.partner_id.id,
+                'consultation_id': self.id,
+            })
+
+            for product in self.doctor_id.product_ids:
+                self.env['sale.order.line'].create({
+                    'order_id': sale_order.id,
+                    'product_id': product.id,
+                    'product_uom_qty': 1,
+                    'price_unit': product.lst_price,
+                })
+
+            sale_order.action_confirm()
 
     def action_cancel(self):
         self.write({
@@ -67,3 +90,29 @@ class HospitalConsultation(models.Model):
             'state': 'consultation'
         })
 
+    def _compute_sale_order_count(self):
+        for rec in self:
+            rec.sale_order_count = self.env[
+                "sale.order"
+            ].search_count([
+                ("consultation_id", "=", rec.id)
+            ])
+
+    def action_view_sale_orders(self):
+        self.ensure_one()
+
+        sale_order = self.env["sale.order"].search(
+            [("consultation_id", "=", self.id)],
+            limit=1
+        )
+
+        if sale_order:
+            return {
+                "type": "ir.actions.act_window",
+                "name": "Quotation",
+                "res_model": "sale.order",
+                "view_mode": "list,form",
+                "res_id": sale_order.id,
+                "target": "current",
+            }
+        return True

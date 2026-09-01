@@ -42,6 +42,18 @@
                 </header>
 
                 <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_sale_orders"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-shopping-cart">
+
+                            <field name="sale_order_count"
+                                   widget="statinfo"
+                                   string="Sales"/>
+
+                        </button>
+                    </div>
                     <group>
                         <group>
                             <field name="name"/>

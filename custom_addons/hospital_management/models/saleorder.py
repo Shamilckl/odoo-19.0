@@ -7,3 +7,7 @@ class SaleOrder(models.Model):
         "hospital.appointment",
         string="Appointment"
     )
+
+    consultation_id = fields.Many2one(
+        "hospital.consultation",
+        string="Consultation")

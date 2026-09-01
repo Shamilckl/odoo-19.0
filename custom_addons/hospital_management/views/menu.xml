@@ -27,25 +27,18 @@
         sequence="3"/>
 
     <menuitem
-        id="billing_menu"
-        name="Billing"
-        parent="hospital_root"
-        action="billing_action"
-        sequence="4"/>
-
-    <menuitem
         id="consultation_menu"
         name="Consultation"
         parent="hospital_root"
         action="consultation_action"
-        sequence="5"/>
+        sequence="4"/>
 
     <menuitem
         id="configuration_menu"
         name="Configuration"
         parent="hospital_root"
         action="slot_action"
-        sequence="6"/>
+        sequence="5"/>
 
     <menuitem
         id="slot_menu"

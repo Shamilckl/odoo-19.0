@@ -9,16 +9,6 @@
         <field name="binding_type">report</field>
     </record>
 
-    <record id="billing_report_action" model="ir.actions.report">
-        <field name="name">Billing Report</field>
-        <field name="model">hospital.billing</field>
-        <field name="report_type">qweb-pdf</field>
-        <field name="report_name">hospital_management.billing_report</field>
-        <field name="report_file">hospital_management.billing_report</field>
-        <field name="binding_model_id" ref="model_hospital_billing"/>
-        <field name="binding_type">report</field>
-    </record>
-
     <record id="consultation_report_action" model="ir.actions.report">
         <field name="name">Consultation Report</field>
         <field name="model">hospital.consultation</field>
