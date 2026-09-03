@@ -7,6 +7,7 @@ class HospitalDoctor(models.Model):
 
     name = fields.Char(string="Doctor Name", required=True)
 
+
     consulting_fee_ids = fields.One2many(
         "hospital.doctor.fee",
         "doctor_id",
