@@ -43,7 +43,7 @@ class HospitalPatient(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
-            if vals.get('reference', 'New') == 'New':
+            if vals.get('reference','New') == 'New':
                 vals['reference'] = self.env['ir.sequence'].next_by_code(
                     'hospital.patient'
                 ) or 'New'
