@@ -129,8 +129,7 @@ class HospitalAppointment(models.Model):
 
         consultation = self.env['hospital.consultation'].search(
             [('appointment_id', '=', self.id)],
-             limit=1
-        )
+             limit=1)
 
         if not consultation:
             self.env['hospital.consultation'].create({
@@ -190,7 +189,7 @@ class HospitalAppointment(models.Model):
                 "type": "ir.actions.act_window",
                 "name": "Quotation",
                 "res_model": "sale.order",
-                "view_mode": "list,form",
+                "view_mode": "form",
                 "res_id": sale_order.id,
                 "target": "current",
             }

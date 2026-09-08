@@ -111,7 +111,7 @@ class HospitalConsultation(models.Model):
                 "type": "ir.actions.act_window",
                 "name": "Quotation",
                 "res_model": "sale.order",
-                "view_mode": "list,form",
+                "view_mode": "form",
                 "res_id": sale_order.id,
                 "target": "current",
             }
