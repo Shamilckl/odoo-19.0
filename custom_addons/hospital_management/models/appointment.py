@@ -162,8 +162,8 @@ class HospitalAppointment(models.Model):
 
         consultation = self.env["hospital.consultation"].search(
             [("appointment_id", "=", self.id)],
-            limit=1
-        )
+            limit=1)
+
 
         if consultation:
             return {
@@ -173,6 +173,9 @@ class HospitalAppointment(models.Model):
                 "view_mode": "form",
                 "res_id": consultation.id,
                 "target": "current",
+                "context": {
+                    "default_patient_id": self.patient_id.id,
+                },
             }
         return True
 

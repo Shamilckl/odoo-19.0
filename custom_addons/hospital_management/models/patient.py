@@ -44,9 +44,7 @@ class HospitalPatient(models.Model):
     def create(self, vals_list):
         for vals in vals_list:
             if vals.get('reference','New') == 'New':
-                vals['reference'] = self.env['ir.sequence'].next_by_code(
-                    'hospital.patient'
-                ) or 'New'
+                vals['reference'] = self.env['ir.sequence'].next_by_code('hospital.patient') or 'New'
 
         return super().create(vals_list)
 
@@ -54,8 +52,7 @@ class HospitalPatient(models.Model):
     def _compute_display_name(self):
         for patient in self:
             patient.display_name = (
-                f"{patient.name} - {patient.reference}"
-            )
+                f"{patient.name} - {patient.reference}")
 
     def _create_customer(self):
         for patient in self:
