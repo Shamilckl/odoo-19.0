@@ -4,7 +4,7 @@
     'category': 'Healthcare',
     'summary': 'Hospital',
     'author': 'Me',
-    'depends': ['base','stock','product','mail','sale','sale_management'],
+    'depends': ['base','stock','product','mail','sale','sale_management','account'],
 
     'data': [
         'security/ir.model.access.csv',
@@ -20,6 +20,8 @@
         'views/hospital_slot_views.xml',
         'views/product_views.xml',
         'views/menu.xml',
+        'views/sale_order_line.xml',
+        'views/hospital_invoice.xml',
 
         'report/appointment_report.xml',
         'report/consultation_report.xml',

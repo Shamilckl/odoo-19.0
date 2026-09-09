@@ -78,7 +78,17 @@ class HospitalConsultation(models.Model):
                     'price_unit': product.lst_price,
                 })
 
+            for medicine_line in self.medicine_line_ids:
+                self.env['sale.order.line'].create({
+                    'order_id': sale_order.id,
+                    'product_id': medicine_line.medicine_id.id,
+                    'product_uom_qty': medicine_line.quantity,
+                    'price_unit': medicine_line.medicine_id.lst_price,
+                    'dosage': medicine_line.dosage,
+                })
+
             sale_order.action_confirm()
+            sale_order._create_invoices()
 
     def action_cancel(self):
         self.write({

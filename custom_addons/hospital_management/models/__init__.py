@@ -7,3 +7,5 @@ from . import consultation_line
 from . import doctor_fee
 from . import hospital_slot
 from . import saleorder
+from . import sale_order_line
+from . import hospital_invoice
