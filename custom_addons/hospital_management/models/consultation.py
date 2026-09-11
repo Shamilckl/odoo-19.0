@@ -31,8 +31,7 @@ class HospitalConsultation(models.Model):
     medicine_line_ids = fields.One2many(
         "hospital.consultation.line",
         "consultation_id",
-        string="Medicines", tracking=True
-    )
+        string="Medicines", tracking=True)
 
     state = fields.Selection([
         ('new', 'New'),
