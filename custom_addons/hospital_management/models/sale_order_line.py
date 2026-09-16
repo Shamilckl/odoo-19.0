@@ -10,4 +10,4 @@ class SaleOrderLine(models.Model):
     def _prepare_invoice_line(self, **optional_values):
         values = super()._prepare_invoice_line(**optional_values)
         values["dosage"] = self.dosage
-        return values
+        return   values
