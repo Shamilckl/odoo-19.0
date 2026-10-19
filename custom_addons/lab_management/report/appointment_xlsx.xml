@@ -1,0 +1,11 @@
+<odoo>
+    <record id="appointment_report_xlsx" model="ir.actions.report">
+        <field name="name">Appointment xlsx</field>
+        <field name="model">lab.appointment</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">lab_management.appointment_xlsx</field>
+        <field name="report_file">lab_management.appointment_xlsx</field>
+        <field name="binding_model_id" ref="model_lab_appointment"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

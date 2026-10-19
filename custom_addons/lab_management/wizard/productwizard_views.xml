@@ -1,0 +1,29 @@
+<odoo>
+    <record id="product_wizard_form" model="ir.ui.view">
+        <field name="name">product.wizard.form</field>
+        <field name="model">product.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Select Product">
+                <sheet>
+                    <group>
+                        <field name="products" invisible="1"/>
+                        <field name="product_category"/>
+                        <field name="reason" invisible="product_category in['add_new_product','reship_product','extra_customer_charges']"/>
+                    </group>
+                    <notebook>
+                        <page string="Products">
+                            <field name="product_line_ids">
+                                <list editable="bottom">
+                                    <field name="name" readonly="1"/>
+                                    <field name="product_name"/>
+                                    <field name="quantity"/>
+                                    <field name="price"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <!-- ========================================================= -->
+    <!-- PAPER FORMAT -->
+    <!-- ========================================================= -->
+
+    <record id="paperformat_lab_doctor_id_card" model="report.paperformat">
+
+        <field name="name">Lab Doctor ID Card</field>
+
+        <field name="default" eval="False"/>
+
+        <field name="format">custom</field>
+
+        <!-- PORTRAIT ID CARD -->
+        <field name="page_width">54</field>
+        <field name="page_height">86</field>
+
+        <field name="orientation">Portrait</field>
+
+        <!-- No margins -->
+        <field name="margin_top">0</field>
+        <field name="margin_bottom">0</field>
+        <field name="margin_left">0</field>
+        <field name="margin_right">0</field>
+
+        <field name="header_line" eval="False"/>
+
+        <field name="dpi">96</field>
+
+    </record>
+
+
+    <!-- ========================================================= -->
+    <!-- REPORT ACTION -->
+    <!-- ========================================================= -->
+
+    <record id="action_lab_doctor_id_card" model="ir.actions.report">
+
+        <field name="name">Print Doctor ID Card</field>
+
+        <field name="model">lab.doctor</field>
+
+        <field name="report_type">qweb-pdf</field>
+
+        <field name="report_name">lab_management.report_lab_doctor_id_card</field>
+        <field name="report_file">lab_management.report_lab_doctor_id_card</field>
+
+        <field name="paperformat_id"
+               ref="lab_management.paperformat_lab_doctor_id_card"/>
+
+        <field name="print_report_name">
+            'Doctor ID Card - %s' % (object.user_id.name)
+        </field>
+
+        <field name="binding_model_id"
+               ref="model_lab_doctor"/>
+
+        <field name="binding_type">report</field>
+
+    </record>
+
+
+    <!-- ========================================================= -->
+    <!-- QWEB REPORT -->
+    <!-- ========================================================= -->
+
+    <template id="report_lab_doctor_id_card">
+
+        <t t-call="web.html_container">
+
+            <!--
+                Each doctor creates exactly ONE page.
+            -->
+
+            <t t-foreach="docs" t-as="doctor">
+
+                <div class="page"
+                     style="
+                        width: 54mm;
+                        height: 86mm;
+                        min-height: 86mm;
+                        margin: 0;
+                        padding: 0;
+                        page-break-after: always;
+                        break-after: page;
+                        box-sizing: border-box;
+                        background-color: lightblue;
+                     ">
+
+                    <!-- ================================================= -->
+                    <!-- ID CARD -->
+                    <!-- ================================================= -->
+
+                    <div style="
+                        width: 54mm;
+                        height: 86mm;
+
+                        margin: 0;
+                        padding: 4mm;
+
+                        box-sizing: border-box;
+
+                        border: 1px solid #000;
+                        border-radius: 3mm;
+
+                        background-color: lightblue;
+
+                        font-family: Arial, sans-serif;
+
+                        text-align: center;
+                    ">
+
+                        <!-- ============================================= -->
+                        <!-- LAB MANAGEMENT -->
+                        <!-- ============================================= -->
+
+                        <div style="
+                            font-size: 15px;
+                            font-weight: bold;
+                            margin-bottom: 4mm;
+                        ">
+                            LAB MANAGEMENT
+                        </div>
+
+
+                        <!-- ============================================= -->
+                        <!-- DOCTOR NAME -->
+                        <!-- ============================================= -->
+
+                        <div style="
+                            font-size: 13px;
+                            font-weight: bold;
+                            margin-bottom: 4mm;
+                        ">
+
+                            <span t-field="doctor.user_id"/>
+
+                        </div>
+
+
+                        <!-- ============================================= -->
+                        <!-- PHOTO -->
+                        <!-- ============================================= -->
+
+                        <div style="
+                            width: 32mm;
+                            height: 38mm;
+                            margin: 0 auto 4mm auto;
+                        ">
+
+                            <img t-if="doctor.profile_img2"
+                                 t-att-src="image_data_uri(doctor.profile_img2)"
+                                 style="
+                                    width: 32mm;
+                                    height: 38mm;
+                                    object-fit: cover;
+                                    border: 1px solid #777;
+                                    border-radius: 2mm;
+                                 "/>
+
+                        </div>
+
+
+                        <!-- ============================================= -->
+                        <!-- MEDICAL LICENSE -->
+                        <!-- ============================================= -->
+
+                        <div style="
+                            font-size: 9px;
+                            font-weight: bold;
+                        ">
+
+                            Medical License No:
+                            <span t-field="doctor.medical_license_number"/>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </t>
+
+        </t>
+
+    </template>
+
+</odoo>

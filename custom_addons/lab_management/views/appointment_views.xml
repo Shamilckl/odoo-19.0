@@ -1,0 +1,100 @@
+<odoo>
+    <record id="appointment_list" model="ir.ui.view">
+        <field name="name">lab.appointment.list</field>
+        <field name="model">lab.appointment</field>
+        <field name="arch" type="xml">
+            <list>
+                <!--                <field name="name"/>-->
+                <field name="patient_name"/>
+                <field name="doctor_name"/>
+                <field name="state"
+                       decoration-info="state == 'confirmed'"
+                       decoration-primary="state=='in_consultation'"
+                       decoration-success="state == 'completed'"
+                       decoration-danger="state == 'cancelled'"
+                       widget="badge"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="appointment_form" model="ir.ui.view">
+        <field name="name">lab.appointment.form</field>
+        <field name="model">lab.appointment</field>
+        <field name="arch" type="xml">
+            <form>
+
+                <header>
+
+                    <button name="action_draft"
+                            string="Draft"
+                            type="object"
+                            class="btn-primary"/>
+
+                    <button name="action_confirmed"
+                            string="Confirmed"
+                            type="object"
+                            class="btn-primary"/>
+
+                    <button name="action_in_consultation"
+                            string="In Consultation"
+                            type="object"
+                            class="btn-primary"/>
+
+                    <button name="action_completed"
+                            string="Completed"
+                            type="object"
+                            class="btn-primary"/>
+
+                    <button name="action_cancelled"
+                            string="Cancel"
+                            type="object"
+                            class="btn-primary"/>
+
+                    <button name="action_prescription"
+                            string="Prescription"
+                            type="object"
+                            class="btn-success"
+                            groups="lab_management.group_prescription"/>
+
+                    <button name="action_exel_report"
+                            string="Print Report"
+                            type="object"/>
+
+                    <field name="state" widget="statusbar"/>
+
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_patients"
+                                type="object"
+                                class="oe_stat_button"
+                                string="Patient"
+                                icon="oi-user">
+                        </button>
+                    </div>
+                    <group>
+                        <field name="name"/>
+                        <field name="patient_name"/>
+                        <field name="patient_number"/>
+                        <field name="department_name2"/>
+                        <field name="doctor_name"/>
+                        <field name="consultation_date"/>
+                        <field name="time_slot"/>
+                        <field name="many" widget="many2many_tags"/>
+
+<!--                        <field name="state"/>-->
+                        <widget name="web_ribbon" title="Cancelled" bg_color="text-bg-danger"
+                                invisible="state != 'cancelled'"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="appointment_action" model="ir.actions.act_window">
+        <field name="name">All Appointment</field>
+        <field name="res_model">lab.appointment</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[]</field>
+    </record>
+</odoo>

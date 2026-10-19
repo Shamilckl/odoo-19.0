@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="website_form" model="website.menu">
+        <field name="name">New Appointment</field>
+        <field name="url">/appointment_click</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence">55</field>
+    </record>
+
+    <template id="appointment_click" name="Create Appointment">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="container">
+                    <h2>Create Appointment</h2>
+                    <form action="/appointment_page" method="POST">
+                        <input type="hidden"
+                               name="csrf_token"
+                               t-att-value="request.csrf_token()"/>
+
+                        <div class="form-group">
+                            <label for="patient_name">Patient Name</label>
+                            <input type="text"
+                                   name="patient_name"
+                                   id="patient_name"
+                                   class="form-control"
+                                   placeholder="Enter patient name"
+                                   required="required"/>
+                        </div>
+
+                        <br/>
+
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email"
+                                   name="email"
+                                   id="email"
+                                   class="form-control"
+                                   placeholder="Enter email address"
+                                   required="required"/>
+                        </div>
+
+                        <br/>
+
+                        <div class="form-group">
+                            <label for="doctor_name">Doctor Name</label>
+                            <select name="doctor_name"
+                                    id="doctor_name"
+                                    class="form-control"
+                                    required="required">
+                                <option value="">Select Doctor</option>
+                                <t t-foreach="request.env['lab.doctor'].sudo().search([])" t-as="doctor">
+                                    <option t-att-value="doctor.id">
+                                        <t t-esc="doctor.user_id.name"/>
+                                    </option>
+                                </t>
+                            </select>
+                        </div>
+
+                        <br/>
+
+                        <div class="form-group">
+                            <label for="patient_number">Phone Number</label>
+                            <input type="text"
+                                   name="patient_number"
+                                   id="patient_number"
+                                   class="form-control"
+                                   placeholder="Enter patient number"
+                                   required="required"/>
+                        </div>
+
+                        <br/>
+
+                        <button type="submit" class="btn btn-primary">
+                            Submit
+                        </button>
+                        <br/>
+                    </form>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <record id="appointment_thank_you_page" model="website.page">
+        <field name="name">Appointment Thank You</field>
+        <field name="type">qweb</field>
+        <field name="url">/patient-thank-you</field>
+        <field name="website_published" eval="True"/>
+        <field name="key">lab_management.appointment_thank_you_template</field>
+        <field name="arch" type="xml">
+            <t t-name="lab_management.appointment_thank_you_template">
+                <t t-call="website.layout">
+                    <div id="wrap">
+                        <div class="container">
+                            <h1>Thank You!</h1>
+                            <div class="alert alert-success" role="status">
+                                Your appointment has been submitted successfully.
+                            </div>
+                            <p>We will get back to you shortly.</p>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </field>
+    </record>
+
+</odoo>

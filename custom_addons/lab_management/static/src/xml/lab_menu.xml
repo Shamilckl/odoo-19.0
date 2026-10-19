@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="lab_management.LabMenu">
+        <Dropdown>
+            <button type="button">
+                <i class="fa fa-users"/>
+            </button>
+            <t t-set-slot="content">
+<!--                <DropdownItem onSelected.bind="onTestClick">Test</DropdownItem>-->
+                <DropdownItem onSelected.bind="onUsersClick">Users</DropdownItem>
+            </t>
+        </Dropdown>
+    </t>
+</templates>

@@ -1,0 +1,38 @@
+<odoo>
+    <record id="created_appointment_form" model="ir.ui.view">
+        <field name="name">created.appointment.form</field>
+        <field name="model">created.appointment</field>
+        <field name="arch" type="xml">
+            <form string="Appointment">
+                <group>
+                    <field name="patient_name"/>
+                    <field name="doctor_name"/>
+                    <field name="age"/>
+                    <field name="consultation_date"/>
+                </group>
+                <notebook>
+                    <page string="Products">
+                        <field name="product_line_ids">
+                            <list editable="bottom">
+                                <field name="product_name"/>
+                                <field name="comment"/>
+                                <field name="days"/>
+                                <field name="quantity"/>
+                                <field name="unit_price"/>
+                                <field name="subtotal"/>
+                            </list>
+                        </field>
+                        <div class="text-end">
+                            <label for="price_total" string="Total :"/>
+                            <field name="price_total" nolabel="1"/>
+                        </div>
+                    </page>
+                </notebook>
+                <footer>
+                    <button name="action_confirm_prescription" string="Sent To Pharmacy" type="object"
+                            class="btn-primary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

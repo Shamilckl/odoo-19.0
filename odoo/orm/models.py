@@ -7003,6 +7003,9 @@ class BaseModel(metaclass=MetaModel):
         """
         return False
 
+    def _create_invoices(self):
+        pass
+
 
 collections.abc.Set.register(BaseModel)
 # not exactly true as BaseModel doesn't have index or count

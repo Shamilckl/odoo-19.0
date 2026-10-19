@@ -1,0 +1,9 @@
+<odoo>
+
+    <record id="confirmed_appointment_action" model="ir.actions.act_window">
+        <field name="name">Confirmed Appointments</field>
+        <field name="res_model">lab.appointment</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('state','=','confirmed')]</field>
+    </record>
+</odoo>

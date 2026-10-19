@@ -1,0 +1,13 @@
+<odoo>
+
+    <record id="ir_cron_auto_cancel_appointments" model="ir.cron">
+        <field name="name">Auto Cancel Expired Appointments</field>
+        <field name="model_id" ref="model_lab_appointment"/>
+        <field name="state">code</field>
+        <field name="code">model.auto_cancel_expired_appointments()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">hours</field>
+        <field name="active">True</field>
+    </record>
+
+</odoo>

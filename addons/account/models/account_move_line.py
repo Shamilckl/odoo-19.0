@@ -1421,7 +1421,6 @@ class AccountMoveLine(models.Model):
         self._conditional_add_to_compute('tax_ids', lambda line: (
             line.account_id.sudo().tax_ids.filtered(lambda tax: tax.company_id == line.company_id)
             and not line.product_id.sudo().taxes_id.filtered(lambda tax: tax.company_id == line.company_id)
-
         ))
 
     def _inverse_reconciled_lines_ids(self):

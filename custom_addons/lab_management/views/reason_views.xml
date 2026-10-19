@@ -1,0 +1,32 @@
+<odoo>
+    <record id="reasons_list" model="ir.ui.view">
+        <field name="name">written.reasons.list</field>
+        <field name="model">written.reasons</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="written_reasons"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="reasons_form" model="ir.ui.view">
+        <field name="name">written.reasons.form</field>
+        <field name="model">written.reasons</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="written_reasons"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="written_reasons_action" model="ir.actions.act_window">
+        <field name="name">Reasons</field>
+        <field name="res_model">written.reasons</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>
